@@ -1,0 +1,257 @@
+#:import SG   settings.SETTINGS
+<NavigationBar>:
+	size_hint:.8,.07
+	pos_hint:{'x':0, 'y':.8}
+	cols:3
+
+<Button@ADDTODOPOPUPSCREEN>:
+	background_color:SG().colors('addtodo_btn_bg')
+	font_name:'Comic'
+	fontsize:45
+	color:SG().colors('UI_text_color')
+
+
+
+<ItemsContainer>:
+	size_hint:1,1
+	pos_hint:{'x':0.05,'y':.05}
+	on_kv_post:
+		self.color:SG().colors('floatlayout_bg')
+	canvas.before:
+		Color:
+			rgba:self.color
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(20,20),(20,20),(20,20),(20,20)]
+
+<ScreenLabel>:
+	size_hint:1,.15
+	pos_hint:{'x':0,'y':.85}
+	font_size:40
+	color:SG().colors('UI_text_color')
+
+<DoneButton>:
+	background_color:0,0,0,0
+	size_hint : (.3,1)
+	text:'DONE'
+
+	canvas.before:
+		Color:
+			rgba:  SG().colors('done_btn_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(20,20),(20,20),(20,20),(20,20)]
+
+
+<DeleteButton>:
+
+	text:'X'
+	background_color:.4,.2,.3,1
+	size_hint : (.3,1)
+	background_color:0,0,0,0
+	size_hint : (.3,1)
+	canvas.before:
+		Color:
+			rgba: SG().colors('delete_button_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(20,20),(20,20),(20,20),(20,20)]
+
+<CompletedDeleteButton>:
+	text:'X'
+	background_color:0,0,0,0
+	size_hint : (.3,1)
+	canvas.before:
+		Color:
+			rgba: SG().colors('delete_button_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(20,20),(20,20),(20,20),(20,20)]
+
+<NavigationButton>:
+	font_size:20
+	border : 20,20,20,20
+	size_hint:.3,1
+	color:SG().colors('UI_text_color')
+	font_name:  'Comic'
+<DropButton>:
+	font_size:20
+	font_name:  'Comic'
+	color:SG().colors('UI_text_color')
+	background_color:SG().colors('dropdown_btn_bg')
+	size_hint_y:None
+
+<ItemsCarousel>:
+	size_hint:1, .7
+
+<DataLabel>:
+	color:SG().colors('UI_text_color')
+	canvas.before:
+		Color:
+			rgba: SG().colors('item_label_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius : [(20,20),(20,20),(20,20),(20,20)]
+<ThemeCheckBox>:
+	color:SG().colors('theme_checkbox_color')
+<AddButton>:
+	id:container
+	size_hint:.1,.1
+	pos_hint:{'x':.8,'y':.1}
+	text:'+'
+	font_size:30
+	background_color:0,0,0,0
+	color:1,1,1,1
+	color:SG().colors('UI_text_color')
+	canvas.before:
+		Color:
+			rgba:SG().colors('addtodo_btn_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(50,50),(50,50),(50,50),(50,50)]
+<ADDTODOPOPUPSCREEN>:
+	id:add_todo_popup
+	description:newtodo_item
+	TextInput:
+		id:newtodo_item
+		color:(0.1137, 0.1137, 0.1137, 1)
+		size_hint:1,.8
+		pos_hint:{'x':0, 'y':.2}
+		hint_text:'DESCRIPTION....'
+		font_name:'Comic'
+		font_size:40
+
+	BoxLayout:
+		size_hint:1,.2
+		Button:
+			text:'ADD'
+			on_press:
+				add_todo_popup.add_todo()
+		Button:
+			text:'CANCEL'
+			on_press:add_todo_popup.par.dismiss()
+<ContentLayout>:
+	size_hint:.9,.85
+	pos_hint:{'x':0.05 ,'y':0.05}
+	background_color:0,0,0,0
+
+	canvas.before:
+		Color:
+			rgba:SG().colors('floatlayout_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+
+<CompletedItems>:
+	size_hint:1,1
+	pos_hint:{'x':0 ,'y':0}
+	color:SG().colors('UI_text_color')
+	canvas.before:
+		Color:
+			rgba:  SG().colors('floatlayout_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(20,20),(20,20),(20,20),(20,20)]
+
+<PendingItems>:
+	size_hint:1,1
+	pos_hint:{'x':0.,'y':0}
+	canvas.before:
+		Color:
+			rgba:SG().colors('floatlayout_bg')
+		RoundedRectangle:
+			size:self.size
+			pos:self.pos
+			radius:[(20,20),(20,20),(20,20),(20,20)]
+
+<ItemsScrollView>:
+	size_hint:1,1
+
+SCREENMANAGER:
+	HOMESCREEN:
+		id:homescreen
+		name:'homescreen'
+		ScreenLabel:
+			text:"T o d o o "
+			font_name:'Consola'
+			font_size:50
+			color:.8,.8,.95,1
+		NavigationBar:
+
+			NavigationButton:
+				id:pending_button
+				text:'pending'
+				background_color: SG().colors('nav_btn_bg_selected') if itemscarousel.current_slide == pendingitems else SG().colors('nav_btn_bg')
+				on_press:
+					itemscarousel.load_slide(pendingitems)
+					pendingitems.load_pending_items()
+			NavigationButton:
+				id:finished_button
+				text:'finished'
+				background_color:SG().colors('nav_btn_bg_selected') if itemscarousel.current_slide == completeditems else SG().colors('nav_btn_bg')
+				on_press:
+					completeditems.load_completed_items()
+					itemscarousel.load_slide(completeditems)
+		ItemsCarousel:
+			id:itemscarousel
+			loop:True
+			spacing:10
+			size_hint:.9,.7
+			pos_hint:{'x':.05, 'y':.05}
+
+
+			PendingItems:
+				pendingitems_scroll:pendingitems_scroll
+				id:pendingitems
+				on_kv_post:pendingitems.load_pending_items()
+				ItemsScrollView:
+					size_hint:1,1
+					pos_hint:{'x':0, 'y':0}
+					BoxLayout:
+						size_hint_x:1
+						size_hint_y:len(self.children) * .2
+						spacing:10
+						orientation:'vertical'
+						cols:1
+						size_hint:1,1
+						id:pendingitems_scroll
+
+			CompletedItems:
+				id:completeditems
+				completeditems_scroll:completeditems_scroll
+				on_kv_post:completeditems.load_completed_items()
+				ItemsScrollView:
+					size_hint:1,1
+					pos_hint:{'x':0, 'y':0}
+					BoxLayout:
+						size_hint_x:1
+						size_hint_y:len(self.children) * .2
+						orientation:'vertical'
+						cols:1
+						spacing:10
+						size_hint:1,1
+						id:completeditems_scroll
+
+		AddButton:
+			on_press:
+				print('New TODO item#')
+		Button:
+			pos_hint:{'x':.8, 'y':.8}
+			size_hint:.2,.07
+			background_color:.4,.5,.5,.5
+			id:options
+			font_size:30
+		 
+
+			text:'exit'
+			on_press:app.stop()
+
+
+	LOADINGSCREEN:

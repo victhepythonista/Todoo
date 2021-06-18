@@ -1,0 +1,36 @@
+[CONFIG]
+theme = DARKTHEME
+notifications = 0
+
+[THEMEPROPERTIES]
+window_clearcolor =
+floatlayout_bg =
+nav_btn_bg =
+nav_btn_bg_selected =
+add_btn_bg =
+theme_checkbox_color =
+settings_label_bg =
+ui_text_color =
+addtodo_btn_bg =
+fropdown_btn_bg =
+item_label_bg =
+todoitem_label_color =
+done_btn_bg =
+done_btn_color =
+
+
+[DARKTHEME]
+window_clearcolor = (0.191, 0.191, 0.196, 1)
+floatlayout_bg = (0.48, 0.4902, 0.4939, .5)
+nav_btn_bg = (0.149, 0.1961, 0.2196, 1)
+nav_btn_bg_selected = (0.149, 0.1961, 0.3196, 1)
+addtodo_btn_bg = .3,.56,.76,1
+theme_checkbox_color = 0,1,.5,1
+settings_label_bg = (0.149, 0.1961, 0.2196, 1)
+ui_text_color = .9,.9,.9,1
+dropdown_btn_bg = (0.149, 0.1961, 0.2196, 1)
+item_label_bg = (0.149, 0.1961, 0.2196, 1)
+done_btn_bg = (0.149, 0.1961, 0.2196, 1)
+done_btn_color = .9,1,1,1
+delete_button_bg = (0.249, 0.1961, 0.2196, 1)
+settings_label_color = (0.149, 0.1961, 0.2196, 1)
